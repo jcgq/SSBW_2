@@ -1,0 +1,74 @@
+{% load static %}
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>MUI Landing Page with Extras</title>
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+    <link rel="stylesheet" href="//cdn.muicss.com/mui-latest/extra/mui-colors.min.css">
+    <link rel="stylesheet" href="/static/style.css">
+    <script src="//cdn.muicss.com/mui-latest/extra/mui-combined.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+
+  </head>
+  <body>
+    <header class="mui-appbar mui--z1">
+      <div class="mui-container">
+        <table>
+          <tr class="mui--appbar-height">
+            <td class="mui--text-title">
+              <a style="text-decoration: none;" href="{% url 'inicio' %}">
+                FANTASMAS CIBERNÉTICOS
+              </a>
+            </td>
+            <td class="mui--text-right">
+              <ul class="mui-list--inline mui--text-body2">
+                <li><a href="#">About</a></li>
+                <li><a href="#">Pricing</a></li>
+                
+                {% if not user.is_authenticated %}
+                <li>
+                  <a href="{% url 'login' %}">
+                    <i class="fa fa-sign-in" aria-hidden="true">Login</i>
+                  </a>
+                </li>
+                {% else %}
+                <li>
+                  <a href="{% url 'logout' %}">
+                    <i class="fa fa-sign-out" aria-hidden="true">Logout</i>
+                  </a>
+                </li>
+                <li>
+                  <i>{{ user.username }}</i> 
+                </li>
+                {% endif %}
+                
+              </ul>
+            </td>
+          </tr>
+        </table>
+      </div>
+    </header>
+    <div style="padding-top: 10vh;" class="mui--appbar-heigth"></div>
+    
+    <div style="padding: 0 2vw 0 2vw;" class="mui--text-center">
+      {% block contenido %}
+      {% endblock %}
+    </div>
+
+
+    
+    <footer style="position: fixed;bottom: 0;width: 100%;height: 40px;">
+      <div class="mui-container mui--text-center mui--text-bottom">
+       Realizado por <a href="https://github.com/jcgq">Juan Carlos</a>
+      </div>
+    </footer>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.min.js"></script>
+    <script>
+      new WOW().init();
+    </script>
+  </body>
+</html>

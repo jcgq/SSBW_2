@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% load static %}
+{% block contenido %}
+    <br><br>
+
+    <div class="mui--text-display3 row wow zoomInDown">Fantasmas ciberneticos</div>
+    <br><br>
+    <img src="{% static 'img/casper.jpg' %}">
+    <br><br>
+    <a href="{% url 'consulta' %}">
+        <button class="mui-btn mui-btn--primary">Consulta</button>
+    </a>
+    
+{% endblock %}

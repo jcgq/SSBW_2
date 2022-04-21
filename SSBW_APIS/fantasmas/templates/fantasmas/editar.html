@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% load static %}
+{% block contenido %}
+
+<div class = "mui-panel" style="background-color: beige;">
+    <table class="mui-table mui-table-bordered mui--text-center">
+        <form action="{% url 'editar' persona.pk %}" method="POST" class="mui-form">
+            {% csrf_token %}
+            <div class="mui-textfield mui-textfield--float-label">
+                <input type="text" name="firstname" value="{{ persona.firstname }}">
+                <label>FirstName</label>
+            </div>
+            <div class="mui-textfield mui-textfield--float-label">
+                <input type="text" name="lastname" value="{{ persona.lastname }}">
+                <label>LastName</label>
+            </div>
+            <div class="mui-textfield mui-textfield--float-label">
+                <input type="email" name="email" value="{{ persona.email }}">
+                <label>Email</label>
+            </div>
+
+            <select name="gender">
+                <option value="male">male</option>
+                <option value="female">female</option>
+            </select>
+
+            <br>
+            <button type="submit" class="=btn btn-warning">Guardar</button>
+        </form>
+    </table>
+</div>
+
+
+
+{% endblock %}

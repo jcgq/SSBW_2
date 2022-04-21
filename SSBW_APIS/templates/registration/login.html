@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block contenido %}
+<br><br>
+
+<form method="post" class="mui-form mui-col-md-4 mui-col-md-offset-4">
+    {% csrf_token %}
+   <legend>Acceder</legend> 
+   <div class="mui-textfield">
+    <input type="text" name="username" autofocus autocapitalize="none" 
+    autocomplete="username" maxlength="150" required id="id_username" placeholder="Nombre de usuario">
+  </div>
+  <div class="mui-textfield">
+    <input type="password" name="password" autocomplete="current-password" 
+    required id="id_password" placeholder="Contraseña">
+  </div>
+  <div class="mui--text-right">
+    <button class="mui-btn mui-btn--primary" type="submit">Log in</button>
+  </div> 
+    
+</form>
+{% endblock %}

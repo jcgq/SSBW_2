@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% load static %}
+{% block contenido %}
+<br><br>
+<div class = "mui-panel" style="background-color: beige;">
+    <table class="mui-table mui-table-bordered mui--text-center">
+    <form action="{% url 'aniadir' %}" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ formulario.as_p }}
+        <button type="submit" class="=btn btn-warning">Añadir</button>
+    </form>
+    </table>
+</div>
+{% endblock %}

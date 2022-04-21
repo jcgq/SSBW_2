@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block contenido %}
+    <b>{{de.firstname}} {{de.lastname}}</b>
+    <br><br><br><br>
+    <img style="width: 30vw;" src="{% static de.image %}"/>
+
+    <br><br>
+
+{% endblock %}

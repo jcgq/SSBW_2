@@ -1,0 +1,110 @@
+{% extends "base.html" %}
+{% load static %}
+
+    {% block contenido %}
+    <script>
+      $(function(){
+        $('#confirma').hide()
+
+        $('#cancelar').click(
+          function(){
+            $('#confirma').hide()
+          }
+        )
+
+        $('#borrar').click(
+          function(){
+            let idd = $(this).attr('idd')
+            console.log(idd)
+
+            $.ajax({
+              url:`/borrar/${idd}`,
+              success: function(data){
+                console.log(`borrado ${data.borrado}`)
+                $(`#${idd}`).remove()
+                $('#confirma').hide()
+              }
+            })
+          }
+        )
+
+
+        $('.borrar').click(
+          function(){
+            let firstname = $(this).attr('firstname')
+            let idd = $(this).attr('idd')
+
+            $('#para_borrar').html(firstname)
+
+            $('#borrar').attr('idd', idd)
+            
+            $('#confirma').show()
+          }
+
+        )
+      })
+    </script>
+
+    <div class="mui-panel" id="confirma">
+      Confirmación<br>
+      Esta usted seguro de que quiere borrar este registro <b><span id="para_borrar"></span></b>? <br>
+      
+      <button class="mui-btn mui-btn--danger" id="cancelar">Cancelar</button>&nbsp;&nbsp;&nbsp;
+      <button class="mui-btn mui-btn--primary" id="borrar">Si, lo borro</button>
+    </div>
+    
+      <form class="mui-form--inline" action="{% url 'buscar' %}" method="get">
+        {% csrf_token %}
+        <div class="mui-textfield mui-textfield--float-label">
+          <input type="text" name="nombre">
+          <label>Busco a ...</label>
+        </div>
+        <button class="mui-btn">
+          <i style="color: gray;" class="fa fa-search fa-2x mui--text-button row wow"></i>
+        </button>
+      </form>
+
+      <div class="mui--text-right">
+        <a href="{% url 'aniadir' %}">
+          Añadir
+          <i style="margin-right: 2vw;" class="fa fa-plus fa-2x mui--color-green-A400 mui--text-button row wow"></i>
+        </a>
+      </div>
+
+      <div class = "mui-panel">
+          Los resultados de la búsqueda son:
+          <table class="mui-table mui-table--bordered">
+            {% for row in persona %}
+              <tr id="{{ row.pk }}">
+                <td class="mui--text-left" > 
+                    {{ row.firstname }}
+                </td>
+                <td class="mui--text-left">
+                    {{row.lastname}}
+                </td>
+                <td>
+                  <a style="text-decoration: none; color: black;" href="{% url 'detalle' row.pk %}">
+                    <img style="width: 2vw;" src="{% static row.image %}" width='100px' alt="imagenPerfil"/>
+                  </a>
+                </td>
+                <td>
+                  <a style="text-decoration: none; color: black;" href="{% url 'editar' row.id %}">
+                    <i class="fa fa-pencil mui--text-dark-secondary editar" aria-hidden="true">
+                      </i>
+                  </a>
+                </td>
+                <td>
+                    <a href="#">
+                      <i class="fa fa-trash-o mui--text-accent borrar" aria-hidden="true"
+                        firstname="{{ row.firstname }}"
+                        idd = "{{ row.pk }}">
+                      </i>
+                    </a>
+                </td>
+              </tr>
+            {% endfor %}
+          </table>
+      </div>
+      
+      
+    {% endblock %}
